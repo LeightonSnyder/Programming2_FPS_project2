@@ -16,7 +16,7 @@ public class TimerScript : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        sceneChanger = GetComponent<SceneChanger>();
+        //sceneChanger = GetComponent<SceneChanger>();
     }
     void Start()
     {

@@ -1,0 +1,9 @@
+newmtl Shader_Graphs_Test_Lit
+Kd 1.0 1.0 1.0
+d 1.0
+
+newmtl ProBuilderDefault
+map_Kd GridBox_Default.png
+Kd 1 1 1
+d 1
+
