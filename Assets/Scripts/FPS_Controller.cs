@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FPS_Controller : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem splashParticles;
     //Public floats
     public float WalkSpeed = 5f;
     public float SprintMultiplier = 2f;
@@ -32,12 +33,23 @@ public class FPS_Controller : MonoBehaviour
 
     //Attacking
     public float mopRange = 3f;
-    public float mopDelay = 0.4f;
+    public float mopDelay = 0.1f;
     public float mopSpeed = 1f;
     public int mopDamage = 1;
     public float mopForce = 100f;
     public bool attacking = false;
     public bool readyToAttack = true;
+    public LayerMask physicsMask;
+    public LayerMask dirtMask;
+    public GameObject targetDirt;
+    public Animator mopAnim;
+
+    //Gamemanager
+    public GameManager gameManager;
+    public SceneChanger sceneChanger;
+
+    //Particles
+    private ParticleSystem splashParticlesInstance;
 
     private void Awake()
     {
@@ -117,7 +129,7 @@ public class FPS_Controller : MonoBehaviour
         }
 
         //Debug.Log(IsGrounded());
-
+        Debug.DrawRay(PlayerCamera.transform.position, PlayerCamera.transform.forward * mopRange, Color.red);
     }
 
     private void OnDrawGizmos()
@@ -164,18 +176,44 @@ public class FPS_Controller : MonoBehaviour
 
         var mopDirection = transform.TransformDirection(Vector3.forward);
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, mopRange))
+        if (Physics.Raycast(PlayerCamera.transform.position, PlayerCamera.transform.forward, out hit, mopRange))
         {
-            if (hit.transform.tag == "Hittable")
-            {
-                hit.rigidbody.AddForceAtPosition(mopDirection*mopForce, hit.point);
-            }
+            //spawn in particles
+            SpawnSplashParticles(hit.point);
+        }
 
+        if (Physics.Raycast(PlayerCamera.transform.position, PlayerCamera.transform.forward, out hit, mopRange, physicsMask))
+        {
+            //hit.rigidbody.AddForceAtPosition(mopDirection * mopForce, hit.point);
+            hit.rigidbody.AddExplosionForce(mopForce, hit.point, 20f);
             //HitTarget(hit.point);
         }
+        if (Physics.Raycast(PlayerCamera.transform.position, PlayerCamera.transform.forward, out hit, mopRange, dirtMask))
+        {
+            targetDirt = hit.collider.gameObject;
+            Destroy(targetDirt);
+            gameManager.MessCleaned();
+        }
+        mopAnim.SetTrigger("Attack");
     }
 
+    private void SpawnSplashParticles(Vector3 hitPoint)
+    {
+        splashParticlesInstance = Instantiate(splashParticles, hitPoint, Quaternion.identity);
+    }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Door")
+        {
+            Door cs = other.GetComponent<Door>();
+
+            int sceneNum = cs.doorToSceneNum;
+            Debug.Log(sceneNum);
+
+            sceneChanger.MoveToScene(sceneNum);
+        }
+    }
 
 
 }
