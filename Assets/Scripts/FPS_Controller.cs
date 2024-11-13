@@ -101,6 +101,7 @@ public class FPS_Controller : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             velocity.y = JumpForce;
+            Debug.Log("Jumped");
         }
         else if (!IsGrounded())
         {
@@ -130,7 +131,23 @@ public class FPS_Controller : MonoBehaviour
 
         //Debug.Log(IsGrounded());
         Debug.DrawRay(PlayerCamera.transform.position, PlayerCamera.transform.forward * mopRange, Color.red);
+
+        Debug.Log(IsGrounded());
     }
+
+    private void FixedUpdate()
+    {
+        //all your velocity change stuff goes here
+        //calculate your direction
+        //based off states/bools change vars (like with sprint)
+        //add velocity
+        //Jump();
+    }
+
+    //void Jump()
+    //{
+    //    //jump
+    //}
 
     private void OnDrawGizmos()
     {

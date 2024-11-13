@@ -20,7 +20,7 @@ public class TimerScript : MonoBehaviour
     }
     void Start()
     {
-        timerOn = true;
+        //timerOn = true;
     }
 
     // Update is called once per frame
