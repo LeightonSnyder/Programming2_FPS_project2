@@ -5273,6 +5273,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mess Projector (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4500436817105248992, guid: 17f12ef494e2e5a48a093524f6e2f283, type: 3}
+      propertyPath: m_Size.y
+      value: 0.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500436817105248992, guid: 17f12ef494e2e5a48a093524f6e2f283, type: 3}
+      propertyPath: m_Size.z
+      value: 0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500436817105248992, guid: 17f12ef494e2e5a48a093524f6e2f283, type: 3}
+      propertyPath: m_Center.z
+      value: 0.62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

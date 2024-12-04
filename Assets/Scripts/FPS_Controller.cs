@@ -158,8 +158,8 @@ public class FPS_Controller : MonoBehaviour
     bool IsGrounded()
     {
         RaycastHit hit;
-
-        if (Physics.SphereCast(transform.position, footSize, -transform.up, out hit, footMaxDist, footMask)) //Create spherecast to detect ground
+        //Create spherecast to detect ground
+        if (Physics.SphereCast(transform.position, footSize, -transform.up, out hit, footMaxDist, footMask)) 
         {
             return true;
         }
@@ -209,6 +209,8 @@ public class FPS_Controller : MonoBehaviour
         {
             targetDirt = hit.collider.gameObject;
             Destroy(targetDirt);
+            
+            //targetDirt.GetComponent<MessScript>().MessDamaged();
             gameManager.MessCleaned();
         }
         mopAnim.SetTrigger("Attack");

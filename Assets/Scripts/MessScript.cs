@@ -5,7 +5,7 @@ using UnityEngine;
 public class MessScript : MonoBehaviour
 {
     //Pub Floats
-    public float health = 1;
+    public float health = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -20,5 +20,10 @@ public class MessScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void MessDamaged()
+    {
+        health--;
     }
 }
