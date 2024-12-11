@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3060675053142584447}
   - component: {fileID: 2380927650856574763}
   - component: {fileID: 4500436817105248992}
+  - component: {fileID: 3619532986556892813}
   m_Layer: 8
   m_Name: Mess Projector
   m_TagString: Dirt
@@ -78,3 +79,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.85, y: 0.73, z: 0.25}
   m_Center: {x: 0, y: 0, z: 1.01}
+--- !u!114 &3619532986556892813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3640631447588302393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1431c2a7390e7b948bf33080a2ecbe9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3

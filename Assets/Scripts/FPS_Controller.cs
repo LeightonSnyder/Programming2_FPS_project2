@@ -5,6 +5,7 @@ using UnityEngine;
 public class FPS_Controller : MonoBehaviour
 {
     [SerializeField] private ParticleSystem splashParticles;
+    [SerializeField] private ParticleSystem dirtParticles;
     //Public floats
     public float WalkSpeed = 5f;
     public float SprintMultiplier = 2f;
@@ -50,6 +51,7 @@ public class FPS_Controller : MonoBehaviour
 
     //Particles
     private ParticleSystem splashParticlesInstance;
+    private ParticleSystem dirtParticlesInstance;
 
     private void Awake()
     {
@@ -193,11 +195,6 @@ public class FPS_Controller : MonoBehaviour
 
         var mopDirection = transform.TransformDirection(Vector3.forward);
 
-        if (Physics.Raycast(PlayerCamera.transform.position, PlayerCamera.transform.forward, out hit, mopRange))
-        {
-            //spawn in particles
-            SpawnSplashParticles(hit.point);
-        }
 
         if (Physics.Raycast(PlayerCamera.transform.position, PlayerCamera.transform.forward, out hit, mopRange, physicsMask))
         {
@@ -205,13 +202,44 @@ public class FPS_Controller : MonoBehaviour
             hit.rigidbody.AddExplosionForce(mopForce, hit.point, 20f);
             //HitTarget(hit.point);
         }
+        
         if (Physics.Raycast(PlayerCamera.transform.position, PlayerCamera.transform.forward, out hit, mopRange, dirtMask))
         {
             targetDirt = hit.collider.gameObject;
-            Destroy(targetDirt);
+            var dirtScript = targetDirt.GetComponent<MessScript>();
+            SpawnDirtParticles(hit.point);
+            //Destroy(targetDirt);
+
+
+            //gameManager.MessCleaned();
+            if (dirtScript.health > 0) { dirtScript.MessDamaged(); }
+            else
+            {
+                Destroy(targetDirt);
+                gameManager.MessCleaned();
+            }
+        }
+        
+        else if (Physics.Raycast(PlayerCamera.transform.position, PlayerCamera.transform.forward, out hit, mopRange))
+        {
+            //spawn in particles
+            SpawnSplashParticles(hit.point);
+        }
+
+        if (Physics.Raycast(PlayerCamera.transform.position, PlayerCamera.transform.forward, out hit, mopRange, dirtMask))
+        {
+            targetDirt = hit.collider.gameObject;
+            var dirtScript = targetDirt.GetComponent<MessScript>();
+            //Destroy(targetDirt);
+
             
-            //targetDirt.GetComponent<MessScript>().MessDamaged();
-            gameManager.MessCleaned();
+            //gameManager.MessCleaned();
+            if (dirtScript.health > 0) { dirtScript.MessDamaged(); }
+            else
+            {
+                Destroy(targetDirt);
+                gameManager.MessCleaned();
+            }
         }
         mopAnim.SetTrigger("Attack");
     }
@@ -219,6 +247,11 @@ public class FPS_Controller : MonoBehaviour
     private void SpawnSplashParticles(Vector3 hitPoint)
     {
         splashParticlesInstance = Instantiate(splashParticles, hitPoint, Quaternion.identity);
+    }
+
+    private void SpawnDirtParticles(Vector3 hitPoint)
+    {
+        dirtParticlesInstance = Instantiate(dirtParticles, hitPoint, Quaternion.identity);
     }
 
     public void OnTriggerEnter(Collider other)
