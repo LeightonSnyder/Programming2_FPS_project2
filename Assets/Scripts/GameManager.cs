@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log(WinTrigSpot);
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
     }
 
     public void MessCleaned()
