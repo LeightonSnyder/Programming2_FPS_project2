@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
                 
         if (messesRemaining > 0)
         {
-            messesRemainingText.text = "Spills Remaining: " + messesRemaining;
+            messesRemainingText.text = "Spills: " + messesRemaining;
             
         }
         else
