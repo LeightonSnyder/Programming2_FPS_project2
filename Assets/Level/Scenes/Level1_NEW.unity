@@ -8859,7 +8859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeRemainingText: {fileID: 1577871063}
-  timeLeft: 45
+  timeLeft: 50
   timerOn: 1
   GameOverScene: 2
   sceneChanger: {fileID: 1207107541}
